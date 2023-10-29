@@ -1,8 +1,6 @@
 <?php
 session_start();
 ?>
-
-
 <html lang="">
 <head>
     <title>Вас приветствует магазин "Буквофил"!</title>
@@ -10,7 +8,7 @@ session_start();
 <body>
 <form action="index.php" ">
     <h1>Вас приветствует магазин "Буквофил"!</h1>
-<!--    <a href="search.html">| Поиск книг по ISBN, автору, названию| </a>-->
+    <a href="search.html">| Поиск книг по ISBN, автору, названию| </a>
     <a href="sort_price.php">| Сортировка книг по цене | </a>
     <a href="sort_quantity.php">| Сортировка книг по рейтингу продаж |</a>
     <a href="number1.php">| Задание №1 |</a>
@@ -18,9 +16,7 @@ session_start();
     <a href="number3.php">| Задание №3 |</a>
     <a href="vost.php">| Восстановление БД |</a>
     <h2>Сегодня в продаже:</h2>
-
     <?php
-
     $connect=mysqli_connect('mysql', 'root', 'root','books');
     if(mysqli_errno($connect))
     {
@@ -43,13 +39,11 @@ session_start();
         echo '<br />Цена: ';
         echo stripslashes($row[3]);
 
-        $url = 'more_book_information.php?isbn='.($row[0]);
-        echo '<br /><a href='.$url.'>Подробнее...</a>';
+
         echo '</p>';
         $i=$i+1;
     }
     echo '<p>Найдено книг: '.$i.'</p>';
-   
     ?>
 </body>
 </html>

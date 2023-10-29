@@ -24,7 +24,7 @@ mysqli_query($connect,"DROP TABLE  orders");
 mysqli_query($connect,"DROP TABLE  books");
 mysqli_query($connect,"DROP TABLE  order_items");
 mysqli_query($connect,"DROP TABLE  book_reviews");
-// mysqli_query($connect,"DROP TABLE login_password");
+mysqli_query($connect,"DROP TABLE login_password");
 
 mysqli_query($connect,"create table customers
 (customerid int unsigned not null auto_increment primary key, 
@@ -65,13 +65,13 @@ isbn char (13) not null primary key,
 review text,
 FOREIGN KEY (isbn)  REFERENCES order_items(isbn) ON DELETE CASCADE
 )");
-//
-//mysqli_query($connect,"create table login_password
-//(
-//customerid int unsigned not null auto_increment primary key,
-//login varchar(20),
-//password varchar(40),
-//FOREIGN KEY (customerid)  REFERENCES customers (customerid) ON DELETE CASCADE)");
+
+mysqli_query($connect,"create table login_password
+(
+customerid int unsigned not null auto_increment primary key,
+login varchar(20),
+password varchar(40),
+FOREIGN KEY (customerid)  REFERENCES customers (customerid) ON DELETE CASCADE)");
 
 
 mysqli_query($connect,"insert into customers values 
@@ -133,14 +133,14 @@ mysqli_query($connect,"insert into book_reviews values
 ('0-672-23456-6', 'Вся книга посвящена описанию оператора ECHO в его различных модификациях. В конце обучения обычно этот оператор пишут без ошибок'), 
 ('0-672-23769-8','С помощью книги вся наша группа сдала зачет досрочно')
 ");
-//
-//mysqli_query($connect,"insert into login_password values
-//(1, 'iii_1', sha1('my_password_1')),
-//(2, 'ppp_2', sha1('my_password_2')),
-//(3, 'sss_3', sha1('my_password_3')),
-// (4, 'ggg_4', sha1('my_password_4')),
-// (5, 'ddd_5', sha1('my_password_5'))
-//");
+
+mysqli_query($connect,"insert into login_password values
+(1, 'iii_1', sha1('my_password_1')),
+(2, 'ppp_2', sha1('my_password_2')),
+(3, 'sss_3', sha1('my_password_3')),
+(4, 'ggg_4', sha1('my_password_4')),
+(5, 'ddd_5', sha1('my_password_5'))
+");
 
 mysqli_query($connect,"SET FOREIGN_KEY_CHECKS=1");
 mysqli_close($connect);

@@ -47,7 +47,7 @@ echo '</p>';
 $i=$i+1;
 }
 echo '<p>Найдено книг: '.$i.'</p>';
-mysqli_close();
+mysqli_close($connect);
 	?>
 </body>
 </html>

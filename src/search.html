@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Магазин "Буквофил" - Поиск книг</title>
+  </head>
+
+  <body>
+    <h1>Магазин "Буквофил" - Поиск книг</h1>
+
+    <form action="results.php" method="post">
+      Выберите критерий поиска:<br />
+      <select name="searchtype">
+        <option value="author">По автору</option>
+        <option value="title">По названию</option>
+        <option value="isbn">По ISBN</option>
+      </select>
+      <br />
+      Введите информацию для поиска:<br />
+      <input name="searchterm" type="text" />
+      <br />
+      <input type="submit" value="Найти" />
+    </form>
+  </body>
+</html>

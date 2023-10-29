@@ -18,16 +18,15 @@ if(mysqli_errno($connect))
     exit;
 }
 $result=mysqli_query($connect,"select MONTH(date) as month,sum(amount) as revenue from orders as O where year(date)=2006 group by month(date) union  select 13 as month, sum(amount) from orders where year(date)=2006 order by 1");
-$i=0;
 while($row = mysqli_fetch_row($result))
-{
-echo '<p><strong> Месяц: ';
-echo stripslashes($row[0]);
-echo '</strong><br /> Выручка: ';
-echo stripslashes($row[1]);
-echo '</p>';
-$i=$i+1;
-}
+
+    {
+        echo '<p><strong> Месяц: ';
+        echo stripslashes($row[0]);
+        echo '</strong><br /> Выручка: ';
+        echo stripslashes($row[1]);
+        echo '</p>';
+    }
 	?>
 
 </body>
