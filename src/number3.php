@@ -17,19 +17,24 @@ if(mysqli_errno($connect))
     echo 'Ошибка: Не удалось установить соединение с базой данных.';
     exit;
 }
-$result=mysqli_query($connect,"select MONTH(date) as month,sum(amount) as revenue from orders as O where year(date)=2006 group by month(date) union  select 13 as month, sum(amount) from orders where year(date)=2006 order by 1");
-$i=0;
+$result=mysqli_query($connect,"select MONTH(date) as month,sum(amount) as revenue from orders as o where year(date)=2006 group by month(date) order by 1");
 while($row = mysqli_fetch_row($result))
-{
-echo '<p><strong> Месяц: ';
-echo stripslashes($row[0]);
-echo '</strong><br /> Выручка: ';
-echo stripslashes($row[1]);
-echo '</p>';
-$i=$i+1;
-}
-	?>
-
+    {
+        echo '<p><strong> Месяц: ';
+        echo stripslashes($row[0]);
+        echo '</strong><br /> Выручка: ';
+        echo stripslashes($row[1]);
+        echo '</p>';
+    }
+$result=mysqli_query($connect, "select 'Итого за год' as month, sum(amount) from orders where year(date)=2006");
+while($row = mysqli_fetch_row($result)){
+   echo '<p><strong>';
+            echo stripslashes($row[0]);
+            echo '</strong><br /> Выручка: ';
+        echo stripslashes($row[1]);
+        echo '</p>';
+    }
+    ?>
 </body>
 </html>
 

@@ -1,10 +1,10 @@
 <html lang="ru">
 <head>
-    <title>РњР°РіР°Р·РёРЅ "Р‘СѓРєРІРѕС„РёР»" - Р РµР·СѓР»СЊС‚Р°С‚С‹ СЂРµРіРёСЃС‚СЂР°С†РёРё РЅРѕРІРѕРіРѕ РєР»РёРµРЅС‚Р°</title>
+    <title>Магазин "Буквофил" - Результаты регистрации нового клиента</title>
 </head>
 <body>
-    <h1>РњР°РіР°Р·РёРЅ "Р‘СѓРєРІРѕС„РёР»" - Р РµР·СѓР»СЊС‚Р°С‚С‹ СЂРµРіРёСЃС‚СЂР°С†РёРё РЅРѕРІРѕРіРѕ РєР»РёРµРЅС‚Р°</h1>
-    <a href="index.php">|Р’РµСЂРЅСѓС‚СЊСЃСЏ РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ|</a>
+    <h1>Магазин "Буквофил" - Результаты регистрации нового клиента</h1>
+    <a href="general_page.php">|Вернуться на главную страницу|</a>
 
     <?php
 
@@ -13,46 +13,44 @@
         $address = $_POST['address'];
         $login = $_POST['login'];
         $password = $_POST['password'];
+/*
+        $_SESSION['login'] = $login;
+        $_SESSION['password'] = $password;
 
-        //$_SESSION['login'] = $login;
-        //$_SESSION['password'] = $password;
-
-        
+        */
         if(!$name || !$address || !$city || !$login || !$password)
         {
-            echo 'Р’С‹ РІРІРµР»Рё РЅРµ РІСЃРµ РЅРµРѕР±С…РѕРґРёРјС‹Рµ СЃРІРµРґРµРЅРёСЏ!';
+            echo 'Вы ввели не все необходимые сведения!';
             exit;
         }
         
-        mysql_connect('localhost', 'root', '');
-        mysql_select_db('books');
-        if(mysql_errno())
+        mysqlI_connect('mysql', 'root', 'root');
+        if(mysqli_errno())
         {
-        echo 'РћС€РёР±РєР°: РќРµ СѓРґР°Р»РѕСЃСЊ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ СЃРѕРµРґРёРЅРµРЅРёРµ СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С…';
+        echo 'Ошибка: Не удалось установить соединение с базой данных';
         exit;
         }
-        mysql_query("SET CHARACTER SET cp1251");
-        $result1 = mysql_query("SELECT * from customers where name = '$name' and city = '$city' and address = '$address'");
-
-        $row = mysql_fetch_row($result1);
+        mysqli_query("SET CHARACTER SET cp1251");
+        $result1 = mysqli_query("SELECT * from customers where name = '$name' and city = '$city' and address = '$address'");
+        $row = mysqli_fetch_row($result1);
         if($row[0]>0)
         {
-            echo '<h3>Р’С‹ СѓР¶Рµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹ РІ РЅР°С€РµРј РјР°РіР°Р·РёРЅРµ. Р’Р°С€ РЅРѕРјРµСЂ ',$row[0],'</h3>';
+            echo '<h3>Вы уже зарегистрированы в нашем магазине. Ваш номер ',$row[0],'</h3>';
         }
         else
         {
-            $result3 = mysql_query("select * from login_password where login='$login' and password=sha1('$password')");
-            $row = mysql_fetch_row($result3);
+            $result3 = mysqli_query("select * from login_password where login='$login' and password=sha1('$password')");
+            $row = mysqli_fetch_row($result3);
             if($row[0]>0)
             {
-                echo '<h3>РўР°РєРёРµ Р»РѕРіРёРЅ Рё РїР°СЂРѕР»СЊ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓСЋС‚. Р’РІРµРґРёС‚Рµ РґСЂСѓРіРёРµ Р·РЅР°С‡РµРЅРёСЏ.</h3>';
+                echo '<h3>Такие логин и пароль уже существуют. Введите другие значения.</h3>';
                 exit;
             }
-            $result2 = mysql_query("insert into customers values(NULL, '$name', '$address', '$city')");
-            $result4 = mysql_query("insert into login_password values(NULL, '$login', sha1('$password'))");
+            $result2 = mysqli_query("insert into customers values(NULL, '$name', '$address', '$city')");
+            $result4 = mysqli_query("insert into login_password values(NULL, '$login', sha1('$password'))");
             if($result2 && $result4)
             {
-                echo '<h3>РџРѕР·РґСЂР°РІР»СЏРµРј! Р’С‹ РґРѕР±Р°РІР»РµРЅС‹ РІ РЅР°С€Сѓ Р±Р°Р·Сѓ РґР°РЅРЅС‹С….</h3>';
+                echo '<h3>Поздравляем! Вы добавлены в нашу базу данных.</h3>';
             }
         }
         mysql_close();
