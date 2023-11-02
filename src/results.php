@@ -3,13 +3,13 @@ session_start();
 ?>
 <html>
 <head>
-<title>Магазин "Буквофил" - Резултаты поиска</title>
+<title>РњР°РіР°Р·РёРЅ "Р‘СѓРєРІРѕС„РёР»" - Р РµР·СѓР»С‚Р°С‚С‹ РїРѕРёСЃРєР°</title>
 </head>
 
 <body>
-    <h1>Магазин "Буквофил" - Резултаты поиска</h1>
-    <a href="general_page.php">| Вернуться на главную страницу | </a>
-    <a href="search.html">| Вернуться к поиску | </a>
+    <h1>РњР°РіР°Р·РёРЅ "Р‘СѓРєРІРѕС„РёР»" - Р РµР·СѓР»С‚Р°С‚С‹ РїРѕРёСЃРєР°</h1>
+    <a href="general_page.php">| Р’РµСЂРЅСѓС‚СЊСЃСЏ РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ | </a>
+    <a href="search.html">| Р’РµСЂРЅСѓС‚СЊСЃСЏ Рє РїРѕРёСЃРєСѓ | </a>
     <?php
     $searchtype=$_POST['searchtype'];
     $searchterm=$_POST['searchterm'];
@@ -17,38 +17,38 @@ session_start();
 
     if(!$searchtype || !$searchterm)
     {
-        echo 'Вы не ввели параметры поиска. Пожалуйста, вернитесь на предыдущую страницу и повторите ввод.';
+        echo 'Р’С‹ РЅРµ РІРІРµР»Рё РїР°СЂР°РјРµС‚СЂС‹ РїРѕРёСЃРєР°. РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРµСЂРЅРёС‚РµСЃСЊ РЅР° РїСЂРµРґС‹РґСѓС‰СѓСЋ СЃС‚СЂР°РЅРёС†Сѓ Рё РїРѕРІС‚РѕСЂРёС‚Рµ РІРІРѕРґ.';
         exit;
     }
     mysql_connect('localhost', 'root', '');
     mysql_select_db('books');
 if(mysql_errno())
 {
-echo 'Ошибка: Не удалось установить соединение с базой данных.';
+echo 'РћС€РёР±РєР°: РќРµ СѓРґР°Р»РѕСЃСЊ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ СЃРѕРµРґРёРЅРµРЅРёРµ СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С….';
 exit;
 }
 mysql_query("SET CHARACTER SET cp1251");
 $result=mysql_query("select * from books where ".$searchtype." like '%$searchterm%'");
     $i=0;
-while($row = mysql_fetch_row($result))
+while($row = mysqli_fetch_row($result))
 {
-echo '<p><strong>'.($i+1).'.Название: ';
+echo '<p><strong>'.($i+1).'.РќР°Р·РІР°РЅРёРµ: ';
 echo stripslashes($row[2]);
 
 
-echo '</strong><br />Автор: ';
+echo '</strong><br />РђРІС‚РѕСЂ: ';
 echo stripslashes($row[1]);
 
 echo '<br />ISBN: ';
 echo stripslashes($row[0]);
 
-echo '<br />Цена: ';
+echo '<br />Р¦РµРЅР°: ';
 echo stripslashes($row[3]);
 
 echo '</p>';
 $i=$i+1;
 }
-echo '<p>Найдено книг: '.$i.'</p>';
+echo '<p>РќР°Р№РґРµРЅРѕ РєРЅРёРі: '.$i.'</p>';
 mysql_close();
 	?>
 </body>

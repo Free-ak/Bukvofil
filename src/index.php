@@ -1,12 +1,14 @@
 <?php
 session_start();
 ?>
+
+
 <html lang="">
 <head>
     <title>Вас приветствует магазин "Буквофил"!</title>
 </head>
 <body>
-<form action="index.php" >
+<form action="index.php" ">
     <h1>Вас приветствует магазин "Буквофил"!</h1>
     <form action="old_client.php" method="post">
     <a href="search.html">| Поиск книг по ISBN, автору, названию| </a>
@@ -28,7 +30,9 @@ session_start();
         </table>
         <a href="registration.html">Зарегистрироваться</a>
     <h2>Сегодня в продаже:</h2>
+
     <?php
+
     $connect=mysqli_connect('mysql', 'root', 'root','books');
     if(mysqli_errno($connect))
     {
@@ -51,11 +55,13 @@ session_start();
         echo '<br />Цена: ';
         echo stripslashes($row[3]);
 
-
+        $url = 'more_book_information.php?isbn='.($row[0]);
+        echo '<br /><a href='.$url.'>Подробнее...</a>';
         echo '</p>';
         $i=$i+1;
     }
     echo '<p>Найдено книг: '.$i.'</p>';
+   
     ?>
 </body>
 </html>
