@@ -10,8 +10,8 @@ session_start();
 <h1>Сортировка книг по цене</h1>
     <a href="index.php">| Вернуться на главную страницу | </a>
 	<h2>От самых дешевых к самым дорогим (Выбор за Вами):</h2>
-
 <?php
+
 $connect=mysqli_connect('mysql', 'root', 'root','books');
 if(mysqli_errno($connect))
 {

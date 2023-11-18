@@ -35,7 +35,8 @@ while($row = mysqli_fetch_row($result))
 	echo '</p>';
 	$i=$i+1;
 }
-    mysqli_query($connect,'update orders inner join (select orderid, sum(quantity*cB.price) as newAmount from order_items join books as cB using (isbn) join orders using (orderId) group by orderID)k set amount = k.newAmount where orders.orderID = k.orderID');
+    mysqli_query($connect,"update books set price=price*0.9 where title like '%PHP%'");
+    mysqli_query($connect,"update orders inner join (select orderid, sum(quantity*cB.price) as newAmount from order_items join books as cB using (isbn) join orders using (orderId) group by orderID)k set amount = k.newAmount where orders.orderID = k.orderID");
     echo' Цены со скидкой';
     $result=mysqli_query($connect,'select * from orders');
     $i=0;

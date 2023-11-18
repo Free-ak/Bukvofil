@@ -1,14 +1,11 @@
 <?php
 session_start();
 ?>
-
-
-<html lang="">
+<html lang="ru">
 <head>
     <title>Вас приветствует магазин "Буквофил"!</title>
 </head>
 <body>
-<form action="index.php" ">
     <h1>Вас приветствует магазин "Буквофил"!</h1>
     <form action="old_client.php" method="post">
     <a href="search.html">| Поиск книг по ISBN, автору, названию| </a>
@@ -30,9 +27,7 @@ session_start();
         </table>
         <a href="registration.html">Зарегистрироваться</a>
     <h2>Сегодня в продаже:</h2>
-
     <?php
-
     $connect=mysqli_connect('mysql', 'root', 'root','books');
     if(mysqli_errno($connect))
     {
