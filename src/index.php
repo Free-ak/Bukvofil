@@ -28,6 +28,7 @@ session_start();
         <a href="registration.html">Зарегистрироваться</a>
     <h2>Сегодня в продаже:</h2>
     <?php
+    ini_set('display_errors', 0);
     $connect=mysqli_connect('mysql', 'root', 'root','books');
     if(mysqli_errno($connect))
     {

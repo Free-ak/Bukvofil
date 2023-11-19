@@ -8,43 +8,46 @@ session_start();
 <body>
 	<h1>Задание №3</h1>
     <a href="old_client.php">| Вернуться в профиль | </a>
-	<h2>Увеличить стоимость заказа клиентов на 500р (за доставку), если сумма заказа <1000р. Подсчитать сумму вырученную за доставку. </h2>
+	<h2>Подсчитать cуммы заказов за каждый месяц 2006 года и сумму заказов за этот год. </h2>
 
 <?php
-//$login = $_SESSION['login'];
-//$password = $_SESSION['password'];
+ini_set('display_errors', 0);
 $connect=mysqli_connect('mysql', 'root', 'root','books');
 if(mysqli_errno($connect))
 {
-    echo 'Ошибка: Не удалось установить соединение с базой данных.';
+    echo 'Ошибка: Не удалось установить соединение с базой данных';
     exit;
 }
-mysqli_query($connect,"ALTER table orders add delivery int");
-
-mysqli_query($connect,"UPDATE orders inner join (select customerid, sum(amount) as s from orders group by customerid)k using(customerid) set delivery= IF(k.s<1000,500,0)");
-
-$result = mysql_query("SELECT orderid, sum(amount), delivery  from orders join login_password using(customerid) where login = '$login' and password = sha1('$password')");
-
+$login = $_SESSION['login'];
+$password = $_SESSION['password'];
+echo ($login);
+echo ($password);
 $i=0;
-while($row = mysqli_fetch_row($result))
+$result = mysqli_query($connect,"select month(date), sum(amount) from login_password inner join orders using(customerid) where year(date) = 2006 and login = '$login' and password = sha1('$password') group by month(date) order by 1");
+$row1 = mysqli_fetch_row($result);
+if ($row1[0]>0)
 {
-echo '<p></strong>'.'Id заказа: ';
-echo stripslashes($row[0]);
-
-
-echo '<strong><br />Сумма заказа: ';
-echo stripslashes($row[1]);
-
-echo '<strong><br />Цена доставки: ';
-echo stripslashes($row[2]);
-
-
-
-echo '</p>';
-$i=$i+1;
+     echo '<br />Сумма заказов по месяцам за 2006 год:';
+     $result = mysqli_query($connect,"select month(date), sum(amount) from login_password inner join orders using(customerid) where year(date) = 2006 and login = '$login' and password = sha1('$password') group by month(date) order by 1");
+    $sum=0;
+     while($row1 = mysqli_fetch_row($result))
+    {
+    echo '<br /><strong>Месяц: </strong>';
+    echo stripslashes($row1[0]);
+    echo '<br />Вы заказали на: ';
+    echo stripslashes($row1[1]).' руб.'; 
+    $sum+=$row1[1];
+	$i++;
+    } 
+    echo '<br /><strong>Итого сумма  заказов за год:</strong> '.$sum;
+}
+else{
+	echo '<br />Вы ничего не купили в 2006году';
 }
 
-mysqli_close();
+            
+
+mysqli_close($connect);
 	?>
 
 </body>

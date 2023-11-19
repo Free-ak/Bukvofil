@@ -30,7 +30,7 @@ else
     $login = $_SESSION['login'];
     $password = $_SESSION['password'];
 }
-
+$flag = $_SESSION['flag'];
 # //echo ($login);
 # //echo ($password);
 $connect=mysqli_connect('mysql', 'root', 'root','books');

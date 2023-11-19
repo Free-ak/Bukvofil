@@ -8,7 +8,7 @@
 	<h2>Удалить книгу, которая пользуется наименьшим спросом.</h2>
 
 <?php
-
+ini_set('display_errors', 0);
 # echo stripslashes($login);
 $connect=mysqli_connect('mysql', 'root', 'root','books');
 if(mysqli_errno($connect))

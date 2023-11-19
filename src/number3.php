@@ -11,6 +11,7 @@ session_start();
 	<h2>Подсчитать магазина выручку за каждый месяц 2006 года и общую выручку за этот год. </h2>
 
 <?php
+ini_set('display_errors', 0);
 $connect=mysqli_connect('mysql', 'root', 'root','books');
 if(mysqli_errno($connect))
 {

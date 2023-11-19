@@ -11,6 +11,7 @@ session_start();
 	<h2>Снизить на 10% цену на книги по РНР и пересчитать стоимости заказов, в которые входят такие книги.</h2>
 
 <?php
+ini_set('display_errors', 0);
 $connect=mysqli_connect('mysql', 'root', 'root','books');
 if(mysqli_errno($connect))
 {
